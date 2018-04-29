@@ -139,7 +139,10 @@ class DecoderUtil {
         if (qm2 == end - 2)
             return null;
 
-        String mimeCharset = body.substring(begin + 2, qm1);
+        String charsetPart = body.substring(begin + 2, qm1);
+        int asteriskIndex = charsetPart.indexOf('*');
+        String mimeCharset = asteriskIndex == -1 ? charsetPart : charsetPart.substring(0, asteriskIndex);
+
         String encoding = body.substring(qm1 + 1, qm2);
         String encodedText = body.substring(qm2 + 1, end - 2);
 
